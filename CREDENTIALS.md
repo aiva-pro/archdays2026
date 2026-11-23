@@ -4,15 +4,14 @@
 
 | Поле | Куда подставлять | Пример формы, не значение |
 | --- | --- | --- |
-| URL AIVA | браузер, вход | `https://…` |
+| URL AIVA | браузер, вход | https://archdays2026.aiva-pro.tech |
 | Логин | форма входа | персональный |
 | Пароль | форма входа | персональный |
 | Организация | после входа, своя | `ws-team-07` |
 | Код модели | **Модели → Создать модель** | `WS_TEAM_07` |
-| Хост стенда | витрина, статус, письма, Docker API | `<хост>` |
-| Витрина | браузер | `http://<хост>:50000` |
-| Статус сервисов | браузер | `http://<хост>:50000/status` |
-| Outbox писем | браузер | `http://<хост>:50004` |
+| Витрина | браузер | https://ecomarch.aiva-pro.tech |
+| Статус сервисов | браузер | https://ecomarch.aiva-pro.tech/status |
+| Письма после заказа | браузер | https://ecomarch.aiva-pro.tech/outbox/ |
 | Docker API | **Интеграции → Источники** | `http://<хост>:50006` |
 | Namespace | метка `aiva.system` | с карточки |
 | MCP endpoint | [mcp/cursor.json](mcp/cursor.json) или [mcp/claudecode.json](mcp/claudecode.json) | `<AIVA_MCP_URL>` |

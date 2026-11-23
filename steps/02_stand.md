@@ -4,9 +4,10 @@
 
 | Что открыть | URL |
 | --- | --- |
-| Витрина | `http://<хост>:50000` |
-| Статус сервисов | `http://<хост>:50000/status` |
-| Outbox писем | `http://<хост>:50004` |
+| Aiva | https://archdays2026.aiva-pro.tech |
+| Витрина | https://ecomarch.aiva-pro.tech |
+| Статус сервисов | https://ecomarch.aiva-pro.tech/status |
+| Письма после заказа | https://ecomarch.aiva-pro.tech/outbox/ |
 
 Найдите в поиске «книга», откройте товар, положите в корзину, оформите заказ. После заказа в outbox есть письмо. На `/status` — сервисы, которые сейчас запущены.
 
