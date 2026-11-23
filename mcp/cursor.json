@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "aiva": {
+      "url": "<AIVA_MCP_URL>",
+      "headers": {
+        "Authorization": "Bearer <AIVA_TOKEN>"
+      }
+    }
+  }
+}

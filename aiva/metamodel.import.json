@@ -1,0 +1,1110 @@
+{
+  "statusSchemas": [
+    {
+      "code": "WS_LIFECYCLE",
+      "name": "Согласование и жизненный цикл",
+      "description": "Путь объекта от черновика до вывода из эксплуатации. Контрольная точка воркшопа — «Согласовано».",
+      "isActive": true,
+      "statuses": [
+        {
+          "code": "DRAFT",
+          "name": "Черновик",
+          "description": "Нарисовали на канвасе, ещё не обсуждали.",
+          "color": "#94a3b8",
+          "isDefault": true,
+          "isFinal": false,
+          "isActive": true
+        },
+        {
+          "code": "REVIEW",
+          "name": "На согласовании",
+          "description": "Вынесено на обсуждение с командами.",
+          "color": "#f59e0b",
+          "isDefault": false,
+          "isFinal": false,
+          "isActive": true
+        },
+        {
+          "code": "APPROVED",
+          "name": "Согласовано",
+          "description": "Целевая архитектура принята, объект опубликован в репозиторий.",
+          "color": "#22c55e",
+          "isDefault": false,
+          "isFinal": false,
+          "isActive": true
+        },
+        {
+          "code": "LIVE",
+          "name": "В эксплуатации",
+          "description": "Подтверждено фактом: найдено дискавери на стенде.",
+          "color": "#0ea5e9",
+          "isDefault": false,
+          "isFinal": false,
+          "isActive": true
+        },
+        {
+          "code": "DEPRECATED",
+          "name": "Устаревает",
+          "description": "Выводится из эксплуатации, замена уже есть.",
+          "color": "#f97316",
+          "isDefault": false,
+          "isFinal": false,
+          "isActive": true
+        },
+        {
+          "code": "RETIRED",
+          "name": "Выведен",
+          "description": "Больше не эксплуатируется.",
+          "color": "#64748b",
+          "isDefault": false,
+          "isFinal": true,
+          "isActive": true
+        }
+      ],
+      "statusFlows": [
+        {
+          "code": "DRAFT_TO_REVIEW",
+          "name": "Отправить на согласование",
+          "description": null,
+          "fromStatusCode": "DRAFT",
+          "toStatusCode": "REVIEW"
+        },
+        {
+          "code": "REVIEW_TO_APPROVED",
+          "name": "Согласовать",
+          "description": null,
+          "fromStatusCode": "REVIEW",
+          "toStatusCode": "APPROVED"
+        },
+        {
+          "code": "REVIEW_TO_DRAFT",
+          "name": "Вернуть на доработку",
+          "description": null,
+          "fromStatusCode": "REVIEW",
+          "toStatusCode": "DRAFT"
+        },
+        {
+          "code": "APPROVED_TO_LIVE",
+          "name": "Подтверждено фактом",
+          "description": null,
+          "fromStatusCode": "APPROVED",
+          "toStatusCode": "LIVE"
+        },
+        {
+          "code": "APPROVED_TO_DRAFT",
+          "name": "Вернуть в черновик",
+          "description": null,
+          "fromStatusCode": "APPROVED",
+          "toStatusCode": "DRAFT"
+        },
+        {
+          "code": "LIVE_TO_DEPRECATED",
+          "name": "Пометить устаревающим",
+          "description": null,
+          "fromStatusCode": "LIVE",
+          "toStatusCode": "DEPRECATED"
+        },
+        {
+          "code": "DEPRECATED_TO_LIVE",
+          "name": "Вернуть в эксплуатацию",
+          "description": null,
+          "fromStatusCode": "DEPRECATED",
+          "toStatusCode": "LIVE"
+        },
+        {
+          "code": "DEPRECATED_TO_RETIRED",
+          "name": "Вывести",
+          "description": null,
+          "fromStatusCode": "DEPRECATED",
+          "toStatusCode": "RETIRED"
+        },
+        {
+          "code": "LIVE_TO_RETIRED",
+          "name": "Вывести сразу",
+          "description": null,
+          "fromStatusCode": "LIVE",
+          "toStatusCode": "RETIRED"
+        }
+      ]
+    }
+  ],
+  "attributes": [
+    {
+      "code": "C4_DESCRIPTION",
+      "name": "Описание",
+      "type": "richtext",
+      "description": null,
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_RESPONSIBILITY",
+      "name": "Ответственность",
+      "type": "richtext",
+      "description": null,
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_TECHNOLOGY",
+      "name": "Технология",
+      "type": "string",
+      "description": "Стек. На стенде приезжает из label aiva.tech.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_OWNER_TEAM",
+      "name": "Команда-владелец",
+      "type": "string",
+      "description": "На стенде приезжает из label aiva.owner.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_VERSION",
+      "name": "Версия",
+      "type": "string",
+      "description": "На стенде приезжает из label aiva.version.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_PORT",
+      "name": "Порт",
+      "type": "string",
+      "description": "На стенде приезжает из label aiva.port.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_HEALTH_PATH",
+      "name": "Health-проба",
+      "type": "string",
+      "description": "Путь проверки живости. На стенде приезжает из label aiva.health.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_URL",
+      "name": "URL / endpoint",
+      "type": "string",
+      "description": null,
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_DEPLOYMENT",
+      "name": "Размещение",
+      "type": "string",
+      "description": "Где развёрнуто: кластер, хост, compose-проект.",
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": null
+    },
+    {
+      "code": "C4_CONTAINER_TYPE",
+      "name": "Тип контейнера",
+      "type": "enum",
+      "description": null,
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": {
+        "values": {
+          "WEB_APP": {
+            "value": "Web Application",
+            "color": "#3b82f6"
+          },
+          "API": {
+            "value": "API / Microservice",
+            "color": "#0ea5e9"
+          },
+          "SPA": {
+            "value": "Single-Page Application",
+            "color": "#6366f1"
+          },
+          "MOBILE": {
+            "value": "Mobile App",
+            "color": "#8b5cf6"
+          },
+          "DATABASE": {
+            "value": "Database",
+            "color": "#f59e0b"
+          },
+          "QUEUE": {
+            "value": "Message Broker",
+            "color": "#f97316"
+          },
+          "WORKER": {
+            "value": "Background Worker",
+            "color": "#14b8a6"
+          },
+          "FILE": {
+            "value": "File System",
+            "color": "#94a3b8"
+          },
+          "OTHER": {
+            "value": "Other",
+            "color": "#94a3b8"
+          }
+        }
+      }
+    },
+    {
+      "code": "C4_PERSON_TYPE",
+      "name": "Тип пользователя",
+      "type": "enum",
+      "description": null,
+      "required": false,
+      "multiLanguage": false,
+      "multiple": false,
+      "isSensitive": false,
+      "spec": {
+        "values": {
+          "EXTERNAL": {
+            "value": "Внешний",
+            "color": "#3b82f6"
+          },
+          "INTERNAL": {
+            "value": "Внутренний",
+            "color": "#22c55e"
+          }
+        }
+      }
+    }
+  ],
+  "layers": [
+    {
+      "code": "C4_ARCHITECTURE",
+      "name": "C4 Architecture",
+      "sortNum": 1,
+      "isActive": true,
+      "description": "Нотация C4: люди и системы, разворачиваемые единицы и компоненты внутри них.",
+      "classes": [
+        {
+          "code": "person",
+          "name": "Person",
+          "description": "Пользователь или актор, работающий с системой.",
+          "sortNum": 1,
+          "isActive": true,
+          "hasStatus": false,
+          "statusSchemaCode": null,
+          "isMultiversion": false,
+          "hasViewpoint": false,
+          "repositoryEditable": true,
+          "hiddenInRepository": false,
+          "spec": {},
+          "attributes": [
+            {
+              "code": "CA_PERSON_DESC",
+              "name": "Описание",
+              "attributeCode": "C4_DESCRIPTION",
+              "sortNum": 1,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_PERSON_TYPE",
+              "name": "Тип",
+              "attributeCode": "C4_PERSON_TYPE",
+              "sortNum": 2,
+              "isActive": true,
+              "description": null
+            }
+          ],
+          "shapeTemplateCode": "ST_PERSON",
+          "isDiscoverable": false
+        },
+        {
+          "code": "softwareSystem",
+          "name": "Software System",
+          "description": "Программная система в зоне ответственности команды.",
+          "sortNum": 2,
+          "isActive": true,
+          "hasStatus": true,
+          "statusSchemaCode": "WS_LIFECYCLE",
+          "isMultiversion": true,
+          "hasViewpoint": false,
+          "repositoryEditable": true,
+          "hiddenInRepository": false,
+          "spec": {},
+          "attributes": [
+            {
+              "code": "CA_SYSTEM_DESC",
+              "name": "Описание",
+              "attributeCode": "C4_DESCRIPTION",
+              "sortNum": 1,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_SYSTEM_RESP",
+              "name": "Ответственность",
+              "attributeCode": "C4_RESPONSIBILITY",
+              "sortNum": 2,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_SYSTEM_TEAM",
+              "name": "Команда",
+              "attributeCode": "C4_OWNER_TEAM",
+              "sortNum": 3,
+              "isActive": true,
+              "description": null
+            }
+          ],
+          "shapeTemplateCode": "ST_SOFTWARE_SYSTEM",
+          "isDiscoverable": false,
+          "templates": [
+            {
+              "name": "Карточка системы",
+              "code": "CT_SOFTWARESYSTEM_1",
+              "description": "Паспорт программной системы.",
+              "templateCode": "TM_SYSTEM_CARD",
+              "sortNum": 1
+            }
+          ]
+        },
+        {
+          "code": "externalSystem",
+          "name": "External System",
+          "description": "Внешняя система за границей ответственности.",
+          "sortNum": 3,
+          "isActive": true,
+          "hasStatus": false,
+          "statusSchemaCode": null,
+          "isMultiversion": false,
+          "hasViewpoint": false,
+          "repositoryEditable": true,
+          "hiddenInRepository": false,
+          "spec": {},
+          "attributes": [
+            {
+              "code": "CA_EXT_DESC",
+              "name": "Описание",
+              "attributeCode": "C4_DESCRIPTION",
+              "sortNum": 1,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_EXT_URL",
+              "name": "URL",
+              "attributeCode": "C4_URL",
+              "sortNum": 2,
+              "isActive": true,
+              "description": null
+            }
+          ],
+          "shapeTemplateCode": "ST_EXTERNAL_SYSTEM",
+          "isDiscoverable": false
+        },
+        {
+          "code": "container",
+          "name": "Container",
+          "description": "Разворачиваемая единица: сервис, витрина, БД, брокер. На этот класс ложатся находки дискавери.",
+          "sortNum": 4,
+          "isActive": true,
+          "hasStatus": true,
+          "statusSchemaCode": "WS_LIFECYCLE",
+          "isMultiversion": true,
+          "hasViewpoint": false,
+          "repositoryEditable": true,
+          "hiddenInRepository": false,
+          "spec": {},
+          "attributes": [
+            {
+              "code": "CA_CONTAINER_DESC",
+              "name": "Описание",
+              "attributeCode": "C4_DESCRIPTION",
+              "sortNum": 1,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_TYPE",
+              "name": "Тип контейнера",
+              "attributeCode": "C4_CONTAINER_TYPE",
+              "sortNum": 2,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_TECH",
+              "name": "Технология",
+              "attributeCode": "C4_TECHNOLOGY",
+              "sortNum": 3,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_TEAM",
+              "name": "Команда",
+              "attributeCode": "C4_OWNER_TEAM",
+              "sortNum": 4,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_VERSION",
+              "name": "Версия",
+              "attributeCode": "C4_VERSION",
+              "sortNum": 5,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_PORT",
+              "name": "Порт",
+              "attributeCode": "C4_PORT",
+              "sortNum": 6,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_HEALTH",
+              "name": "Health-проба",
+              "attributeCode": "C4_HEALTH_PATH",
+              "sortNum": 7,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_DEPLOY",
+              "name": "Размещение",
+              "attributeCode": "C4_DEPLOYMENT",
+              "sortNum": 8,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_CONTAINER_RESP",
+              "name": "Ответственность",
+              "attributeCode": "C4_RESPONSIBILITY",
+              "sortNum": 9,
+              "isActive": true,
+              "description": null
+            }
+          ],
+          "shapeTemplateCode": "ST_CONTAINER",
+          "isDiscoverable": true,
+          "templates": [
+            {
+              "name": "Карточка контейнера",
+              "code": "CT_CONTAINER_1",
+              "description": "Паспорт сервиса для вики или тикета.",
+              "templateCode": "TM_CONTAINER_CARD",
+              "sortNum": 1
+            },
+            {
+              "name": "Задача на деплой",
+              "code": "CT_CONTAINER_2",
+              "description": "Текст тикета для контейнера, который согласован, но не найден дискавери.",
+              "templateCode": "TM_CONTAINER_DEPLOY_TASK",
+              "sortNum": 2
+            }
+          ]
+        },
+        {
+          "code": "component",
+          "name": "Component",
+          "description": "Компонент внутри контейнера.",
+          "sortNum": 5,
+          "isActive": true,
+          "hasStatus": false,
+          "statusSchemaCode": null,
+          "isMultiversion": false,
+          "hasViewpoint": false,
+          "repositoryEditable": true,
+          "hiddenInRepository": false,
+          "spec": {},
+          "attributes": [
+            {
+              "code": "CA_COMPONENT_DESC",
+              "name": "Описание",
+              "attributeCode": "C4_DESCRIPTION",
+              "sortNum": 1,
+              "isActive": true,
+              "description": null
+            },
+            {
+              "code": "CA_COMPONENT_TECH",
+              "name": "Технология",
+              "attributeCode": "C4_TECHNOLOGY",
+              "sortNum": 2,
+              "isActive": true,
+              "description": null
+            }
+          ],
+          "shapeTemplateCode": "ST_COMPONENT",
+          "isDiscoverable": false
+        }
+      ]
+    }
+  ],
+  "edgeTemplates": [
+    {
+      "code": "ET_USES",
+      "name": "Синхронный вызов",
+      "description": "HTTP/JSON и подобное",
+      "style": {
+        "lineStyle": "solid",
+        "strokeWidth": 2,
+        "color": "#3B82F6",
+        "markerStart": "none",
+        "markerEnd": "arrow",
+        "pathType": "orthogonal",
+        "labelMode": "both",
+        "animated": false,
+        "attributeCodes": []
+      }
+    },
+    {
+      "code": "ET_CONTAINS",
+      "name": "Вложенность",
+      "description": "Иерархия C4",
+      "style": {
+        "lineStyle": "dotted",
+        "strokeWidth": 1,
+        "color": "#94A3B8",
+        "markerStart": "none",
+        "markerEnd": "diamond",
+        "pathType": "straight",
+        "labelMode": "none",
+        "animated": false,
+        "attributeCodes": []
+      }
+    }
+  ],
+  "relations": [
+    {
+      "code": "C4_PERSON_USES_SYSTEM",
+      "name": "Использует",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Пользователи",
+      "toName": "Системы",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "person",
+      "toClassCode": "softwareSystem"
+    },
+    {
+      "code": "C4_PERSON_USES_CONTAINER",
+      "name": "Работает через",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Пользователи",
+      "toName": "Контейнеры",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "person",
+      "toClassCode": "container"
+    },
+    {
+      "code": "C4_SYSTEM_USES_SYSTEM",
+      "name": "Использует систему",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Источник",
+      "toName": "Цель",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "softwareSystem",
+      "toClassCode": "softwareSystem"
+    },
+    {
+      "code": "C4_SYSTEM_USES_EXTERNAL",
+      "name": "Интегрируется с",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Системы",
+      "toName": "Внешние системы",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "softwareSystem",
+      "toClassCode": "externalSystem"
+    },
+    {
+      "code": "C4_SYSTEM_CONTAINS_CONTAINER",
+      "name": "Содержит контейнеры",
+      "description": null,
+      "relationType": "hierarchy",
+      "fromName": "Software System",
+      "toName": "Containers",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_CONTAINS",
+      "fromClassCode": "softwareSystem",
+      "toClassCode": "container"
+    },
+    {
+      "code": "C4_CONTAINER_USES_CONTAINER",
+      "name": "Использует контейнер",
+      "description": "Главная связь кейса: её же приносит дискавери из label aiva.depends_on.",
+      "relationType": "directed",
+      "fromName": "Источник",
+      "toName": "Цель",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": true,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "container",
+      "toClassCode": "container"
+    },
+    {
+      "code": "C4_CONTAINER_USES_EXTERNAL",
+      "name": "Интегрируется с внешней",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Контейнеры",
+      "toName": "Внешние системы",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "container",
+      "toClassCode": "externalSystem"
+    },
+    {
+      "code": "C4_CONTAINER_CONTAINS_COMPONENT",
+      "name": "Содержит компоненты",
+      "description": null,
+      "relationType": "hierarchy",
+      "fromName": "Container",
+      "toName": "Components",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_CONTAINS",
+      "fromClassCode": "container",
+      "toClassCode": "component"
+    },
+    {
+      "code": "C4_COMPONENT_USES_COMPONENT",
+      "name": "Использует компонент",
+      "description": null,
+      "relationType": "directed",
+      "fromName": "Источник",
+      "toName": "Цель",
+      "fromRequired": false,
+      "toRequired": false,
+      "fromCardinality": "many",
+      "toCardinality": "many",
+      "hasStatus": false,
+      "statusSchemaCode": null,
+      "isActive": true,
+      "isDefault": false,
+      "edgeTemplateCode": "ET_USES",
+      "fromClassCode": "component",
+      "toClassCode": "component"
+    },
+    {
+      "code": "C4_CONTAINER_MAPPED",
+      "name": "Соответствует целевому контейнеру",
+      "relationType": "mapped",
+      "fromClassCode": "container",
+      "toClassCode": "container",
+      "fromName": "Обнаруженный",
+      "toName": "Целевой",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromRequired": false,
+      "toRequired": false,
+      "hasStatus": false,
+      "isActive": true
+    }
+  ],
+  "classPalettes": [
+    {
+      "code": "C4_PALETTE",
+      "name": "C4",
+      "isDefault": true,
+      "sortOrder": 1,
+      "slots": [
+        "person",
+        "softwareSystem",
+        "externalSystem",
+        null,
+        "container",
+        "component"
+      ]
+    }
+  ],
+  "integration": {
+    "kind": "aiva-integration-config",
+    "version": 1,
+    "connectors": [],
+    "actions": [],
+    "outboundMappers": [],
+    "recognition": {
+      "kind": "aiva-recognition-schema",
+      "version": 1,
+      "classes": [
+        {
+          "code": "ECOM_SERVICE",
+          "name": "Сервисы магазина (Docker)",
+          "attributes": [
+            {
+              "code": "service",
+              "name": "Сервис",
+              "type": "string",
+              "isBusinessKey": true,
+              "required": true,
+              "sortNum": 0
+            },
+            {
+              "code": "model_name",
+              "name": "Имя после импорта Structurizr",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 1
+            },
+            {
+              "code": "system",
+              "name": "Система",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 2
+            },
+            {
+              "code": "technology",
+              "name": "Технология",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 3
+            },
+            {
+              "code": "owner",
+              "name": "Команда",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 4
+            },
+            {
+              "code": "version",
+              "name": "Версия",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 5
+            },
+            {
+              "code": "port",
+              "name": "Порт",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 6
+            },
+            {
+              "code": "description",
+              "name": "Описание",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 7
+            },
+            {
+              "code": "kind",
+              "name": "Тип",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 8
+            },
+            {
+              "code": "depends_on",
+              "name": "Зависимости (факт)",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 9
+            },
+            {
+              "code": "state",
+              "name": "Состояние",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 10
+            },
+            {
+              "code": "image",
+              "name": "Образ",
+              "type": "string",
+              "isBusinessKey": false,
+              "required": false,
+              "sortNum": 11
+            }
+          ]
+        }
+      ],
+      "relations": [],
+      "mappers": [
+        {
+          "connectorCode": "ECOM_DOCKER",
+          "sourceObject": "containers",
+          "name": "ArchDays: Docker → сервисы магазина",
+          "classCode": "ECOM_SERVICE",
+          "businessKeyExpr": "$lookup(Labels, \"aiva.system\") = \"archdays-shop\" ? $lookup(Labels, \"aiva.service\") : \"\"",
+          "processingEnabled": true,
+          "fieldRules": [
+            {
+              "attributeCode": "service",
+              "expression": "$lookup(Labels, \"aiva.service\")"
+            },
+            {
+              "attributeCode": "model_name",
+              "expression": "\"[Container] \" & $lookup(Labels, \"aiva.service\")"
+            },
+            {
+              "attributeCode": "system",
+              "expression": "$lookup(Labels, \"aiva.system\")"
+            },
+            {
+              "attributeCode": "technology",
+              "expression": "$lookup(Labels, \"aiva.tech\")"
+            },
+            {
+              "attributeCode": "owner",
+              "expression": "$lookup(Labels, \"aiva.owner\")"
+            },
+            {
+              "attributeCode": "version",
+              "expression": "$lookup(Labels, \"aiva.version\")"
+            },
+            {
+              "attributeCode": "port",
+              "expression": "$lookup(Labels, \"aiva.port\")"
+            },
+            {
+              "attributeCode": "description",
+              "expression": "$lookup(Labels, \"aiva.description\")"
+            },
+            {
+              "attributeCode": "kind",
+              "expression": "$uppercase($replace($lookup(Labels, \"aiva.kind\"), \"-\", \"_\"))"
+            },
+            {
+              "attributeCode": "depends_on",
+              "expression": "$lookup(Labels, \"aiva.depends_on\")"
+            },
+            {
+              "attributeCode": "state",
+              "expression": "State"
+            },
+            {
+              "attributeCode": "image",
+              "expression": "Image"
+            }
+          ],
+          "relationRules": []
+        }
+      ],
+      "gold": {
+        "classBindings": [
+          {
+            "intMetaClassCode": "ECOM_SERVICE",
+            "modelCode": "",
+            "modelClassCode": "container",
+            "nameAttrCode": "model_name",
+            "nameTemplate": "{model_name}",
+            "fieldMapping": {
+              "description": "C4_DESCRIPTION",
+              "technology": "C4_TECHNOLOGY",
+              "owner": "C4_OWNER_TEAM",
+              "version": "C4_VERSION",
+              "port": "C4_PORT",
+              "kind": "C4_CONTAINER_TYPE"
+            },
+            "identity": {
+              "attributeCode": "name",
+              "expr": "model_name",
+              "onMissing": "discovered"
+            }
+          }
+        ],
+        "relationBindings": [],
+        "attrOverrides": [],
+        "nameTemplates": []
+      }
+    }
+  },
+  "shapeTemplates": [
+    {
+      "code": "ST_PERSON",
+      "name": "C4 Person",
+      "description": "Канон C4: человечек #08427b — имя, тип, описание.",
+      "width": 220,
+      "height": 210,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 210\"><circle cx=\"110\" cy=\"34\" r=\"26\" fill=\"#08427b\"/><path d=\"M110 66c-32 0-58 18-58 40v10h116v-10c0-22-26-40-58-40z\" fill=\"#08427b\"/><rect x=\"0\" y=\"112\" width=\"220\" height=\"98\" rx=\"4\" fill=\"#08427b\"/><text data-slot=\"__name__\" x=\"110\" y=\"140\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"16\" font-weight=\"600\" fill=\"#ffffff\">Person</text><text data-slot=\"__class__\" x=\"110\" y=\"158\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#b8cce0\">Person</text><text data-slot=\"CA_PERSON_DESC\" x=\"110\" y=\"180\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"#dbe7f2\"></text><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"110\" cy=\"8\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"220\" cy=\"136.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"220\" cy=\"161\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"220\" cy=\"185.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"55\" cy=\"210\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"110\" cy=\"210\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"165\" cy=\"210\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"136.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"161\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"185.5\" r=\"3\" fill=\"none\"/></svg>",
+      "bindings": {},
+      "status": "active",
+      "isForElements": false
+    },
+    {
+      "code": "ST_SOFTWARE_SYSTEM",
+      "name": "C4 Software System",
+      "description": "Канон C4: система в фокусе #1168bd. Родительский режим — прозрачный system boundary с пунктиром и текстом currentColor: читается и в светлой, и в тёмной теме.",
+      "width": 240,
+      "height": 170,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"0\" y=\"0\" width=\"240\" height=\"170\" rx=\"4\" fill=\"#1168bd\"/><text data-slot=\"__name__\" x=\"120\" y=\"44\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"16\" font-weight=\"600\" fill=\"#ffffff\">Software System</text><text data-slot=\"__class__\" x=\"120\" y=\"64\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#bcd7ee\">Software System</text><text data-slot=\"CA_SYSTEM_DESC\" x=\"120\" y=\"92\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"#e3eef8\"></text><rect data-child-area=\"true\" x=\"10\" y=\"124\" width=\"220\" height=\"36\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>",
+      "bindings": {
+        "parentMode": {
+          "stroke": "#7f8792",
+          "strokeWidth": 2,
+          "strokeDasharray": "8 6",
+          "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"1\" y=\"1\" width=\"238\" height=\"168\" rx=\"4\" fill=\"none\" stroke=\"#7f8792\" stroke-width=\"2\" stroke-dasharray=\"8 6\"/><text data-slot=\"__name__\" x=\"14\" y=\"24\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"14\" font-weight=\"600\" fill=\"currentColor\">Software System</text><text data-slot=\"__class__\" x=\"14\" y=\"40\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.6\">Software System</text><rect data-child-area=\"true\" x=\"12\" y=\"52\" width=\"216\" height=\"106\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>"
+        }
+      },
+      "status": "active",
+      "isForElements": false
+    },
+    {
+      "code": "ST_EXTERNAL_SYSTEM",
+      "name": "C4 External System",
+      "description": "Канон C4: внешняя система — серая #999999.",
+      "width": 240,
+      "height": 170,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"0\" y=\"0\" width=\"240\" height=\"170\" rx=\"4\" fill=\"#999999\"/><text data-slot=\"__name__\" x=\"120\" y=\"44\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"16\" font-weight=\"600\" fill=\"#ffffff\">External System</text><text data-slot=\"__class__\" x=\"120\" y=\"64\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#ececec\">External System</text><text data-slot=\"CA_EXT_DESC\" x=\"120\" y=\"92\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"#f7f7f7\"></text><rect data-child-area=\"true\" x=\"10\" y=\"124\" width=\"220\" height=\"36\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>",
+      "bindings": {},
+      "status": "active",
+      "isForElements": false
+    },
+    {
+      "code": "ST_CONTAINER",
+      "name": "C4 Container",
+      "description": "Канон C4: контейнер #438dd5 — имя, тип, технология, описание. Родительский режим — прозрачный container boundary с текстом currentColor.",
+      "width": 240,
+      "height": 170,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"0\" y=\"0\" width=\"240\" height=\"170\" rx=\"4\" fill=\"#438dd5\"/><text data-slot=\"__name__\" x=\"120\" y=\"44\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"16\" font-weight=\"600\" fill=\"#ffffff\">Container</text><text data-slot=\"__class__\" x=\"120\" y=\"64\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#d6e8f7\">Container</text><text data-slot=\"CA_CONTAINER_TECH\" x=\"120\" y=\"82\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#d6e8f7\"></text><text data-slot=\"CA_CONTAINER_DESC\" x=\"120\" y=\"108\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"#eaf3fb\"></text><rect data-child-area=\"true\" x=\"10\" y=\"124\" width=\"220\" height=\"36\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>",
+      "bindings": {
+        "parentMode": {
+          "stroke": "#438dd5",
+          "strokeWidth": 2,
+          "strokeDasharray": "8 6",
+          "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"1\" y=\"1\" width=\"238\" height=\"168\" rx=\"4\" fill=\"none\" stroke=\"#438dd5\" stroke-width=\"2\" stroke-dasharray=\"8 6\"/><text data-slot=\"__name__\" x=\"14\" y=\"24\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"14\" font-weight=\"600\" fill=\"currentColor\">Container</text><text data-slot=\"__class__\" x=\"14\" y=\"40\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.6\">Container</text><text data-slot=\"CA_CONTAINER_TECH\" x=\"14\" y=\"54\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.6\"></text><rect data-child-area=\"true\" x=\"12\" y=\"66\" width=\"216\" height=\"92\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>"
+        }
+      },
+      "status": "active",
+      "isForElements": false
+    },
+    {
+      "code": "ST_COMPONENT",
+      "name": "C4 Component",
+      "description": "Канон C4: компонент #85bbf0 с тёмным текстом.",
+      "width": 240,
+      "height": 170,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 170\"><rect x=\"0\" y=\"0\" width=\"240\" height=\"170\" rx=\"4\" fill=\"#85bbf0\"/><text data-slot=\"__name__\" x=\"120\" y=\"44\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"16\" font-weight=\"600\" fill=\"#000000\">Component</text><text data-slot=\"__class__\" x=\"120\" y=\"64\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#1a3a5c\">Component</text><text data-slot=\"CA_COMPONENT_TECH\" x=\"120\" y=\"82\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"11\" fill=\"#1a3a5c\"></text><text data-slot=\"CA_COMPONENT_DESC\" x=\"120\" y=\"108\" text-anchor=\"middle\" font-family=\"system-ui, -apple-system, sans-serif\" font-size=\"10\" fill=\"#1c3f63\"></text><rect data-child-area=\"true\" x=\"10\" y=\"124\" width=\"220\" height=\"36\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-quarter\" cx=\"60\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-center\" cx=\"120\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"top-three-quarter\" cx=\"180\" cy=\"0\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-quarter\" cx=\"240\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-center\" cx=\"240\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"right-three-quarter\" cx=\"240\" cy=\"127.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-quarter\" cx=\"60\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-center\" cx=\"120\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"bottom-three-quarter\" cx=\"180\" cy=\"170\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-quarter\" cx=\"0\" cy=\"42.5\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-center\" cx=\"0\" cy=\"85\" r=\"3\" fill=\"none\"/><circle data-port=\"true\" data-port-dir=\"any\" data-port-name=\"left-three-quarter\" cx=\"0\" cy=\"127.5\" r=\"3\" fill=\"none\"/></svg>",
+      "bindings": {},
+      "status": "active",
+      "isForElements": false
+    }
+  ],
+  "templates": [
+    {
+      "code": "TM_CONTAINER_CARD",
+      "name": "Карточка контейнера",
+      "type": "markdown",
+      "template": "# {{name}}\n\n{{CA_CONTAINER_DESC}}\n\n| Поле | Значение |\n|---|---|\n| Тип | {{CA_CONTAINER_TYPE}} |\n| Технология | {{CA_CONTAINER_TECH}} |\n| Версия | {{CA_CONTAINER_VERSION}} |\n| Команда | {{CA_CONTAINER_TEAM}} |\n| Порт | {{CA_CONTAINER_PORT}} |\n| Health | {{CA_CONTAINER_HEALTH}} |\n| Размещение | {{CA_CONTAINER_DEPLOY}} |\n\n## Ответственность\n\n{{CA_CONTAINER_RESP}}\n",
+      "description": "Паспорт сервиса для вики или тикета."
+    },
+    {
+      "code": "TM_CONTAINER_DEPLOY_TASK",
+      "name": "Задача на деплой",
+      "type": "markdown",
+      "template": "## Развернуть {{name}}\n\nСервис согласован в целевой архитектуре, но дискавери не находит его на стенде.\n\n- **Команда:** {{CA_CONTAINER_TEAM}}\n- **Стек:** {{CA_CONTAINER_TECH}}\n- **Ожидаемая версия:** {{CA_CONTAINER_VERSION}}\n- **Порт:** {{CA_CONTAINER_PORT}}\n- **Health:** {{CA_CONTAINER_HEALTH}}\n\n### Критерий готовности\n\nКонтейнер поднят, отвечает на health-пробу, размечен labels aiva.* — и следующий прогон дискавери сопоставляет его с каноником.\n",
+      "description": "Текст тикета для контейнера, который согласован, но не найден дискавери."
+    },
+    {
+      "code": "TM_SYSTEM_CARD",
+      "name": "Карточка системы",
+      "type": "markdown",
+      "template": "# {{name}}\n\n{{CA_SYSTEM_DESC}}\n\n- **Команда-владелец:** {{CA_SYSTEM_TEAM}}\n\n## Ответственность\n\n{{CA_SYSTEM_RESP}}\n",
+      "description": "Паспорт программной системы."
+    }
+  ]
+}
