@@ -67,6 +67,10 @@ article img { max-width: 100%; }
 .card .row span.v { font: 13px ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
 .card .hint { color: var(--muted); font-size: 12px; margin-top: 8px; }
 .card .empty { color: var(--muted); }
+.card .login { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; margin-top: 12px; }
+.card .login label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.card .login input { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; width: 170px; }
+.card .login input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 
 @media (max-width: 800px) {
   .layout { grid-template-columns: 1fr; }
@@ -118,6 +122,7 @@ article img { max-width: 100%; }
     try { card = JSON.parse(safe.get(sessionStorage, CARD_KEY) || 'null'); } catch { card = null; }
   }
 
+  const TEAMS = 20;
   const FIELDS = [
     ['team', 'Команда', false],
     ['login', 'Логин', false],
@@ -208,7 +213,26 @@ article img { max-width: 100%; }
   function renderCard() {
     const host = $('cardHost');
     if (!card) {
-      host.innerHTML = '<div class="card"><h3>Ваша карточка</h3><div class="empty">Откройте персональную ссылку или отсканируйте QR-код с карточки: логин, пароль и токен появятся здесь с кнопками «Копировать».</div></div>';
+      host.innerHTML = '<div class="card"><h3>Ваша карточка</h3><div class="empty">Откройте персональную ссылку или отсканируйте QR-код с карточки. Или введите номер команды и пароль воркшопа, который назвал ведущий.</div>'
+        + '<form id="teamForm" class="login"><label>Номер команды<input id="teamNo" type="number" inputmode="numeric" min="1" max="' + TEAMS + '" required></label>'
+        + '<label>Пароль воркшопа<input id="teamPw" type="password" autocomplete="off" required></label>'
+        + '<button class="primary" type="submit">Показать мои доступы</button></form><div class="hint" id="teamErr"></div></div>';
+      $('teamForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const n = parseInt($('teamNo').value, 10);
+        if (!(n >= 1 && n <= TEAMS)) { $('teamErr').textContent = 'Номер команды: от 1 до ' + TEAMS; return; }
+        card = {
+          team: 'Команда ' + String(n).padStart(2, '0'),
+          login: 'user' + n + '@arch-org' + n + '.aiva-pro.tech',
+          password: $('teamPw').value,
+          org: 'arch-org' + n,
+          model: 'ARCH_ORG' + n,
+          stand: 'https://archdays2026.aiva-pro.tech',
+        };
+        safe.set(sessionStorage, CARD_KEY, JSON.stringify(card));
+        renderCard();
+        show();
+      });
       return;
     }
     let rows = '';
