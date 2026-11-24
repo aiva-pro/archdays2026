@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ArchDays × Айва</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%2366569d'/%3E%3Cpath d='M64 85H22L64 43L106 85' fill='none' stroke='%23fff' stroke-width='21' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f6f6fa; --panel: #ffffff; --fg: #22262b; --muted: #6b7280; --line: #e4e4ea;
+  --accent: #66569d; --accent-soft: #ece9f6; --accent-fg: #ffffff;
+  --code-bg: #f1f0f7; --ok: #4d8a64; --ok-soft: #e7f1ea;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151d; --panel: #1e1c28; --fg: #e3e5e8; --muted: #8b929b; --line: #2e2c3a;
+    --accent: #a79aea; --accent-soft: #2a2640; --accent-fg: #16151d;
+    --code-bg: #262336; --ok: #86bf9b; --ok-soft: #1f2d25;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+a { color: var(--accent); }
+button { font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+
+.layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: 100%; }
+.side { background: var(--panel); border-right: 1px solid var(--line); padding: 16px 12px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; padding: 0 8px 14px; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.brand small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+.group { margin: 14px 8px 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.nav a { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: var(--fg); text-decoration: none; font-size: 14px; }
+.nav a:hover { background: var(--accent-soft); }
+.nav a.active { background: var(--accent-soft); font-weight: 600; }
+.nav .tick { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--line); flex: none; display: grid; place-items: center; font-size: 10px; color: transparent; }
+.nav a.done .tick { background: var(--ok); border-color: var(--ok); color: #fff; }
+.progress { margin: 8px 10px 0; height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+
+.main { padding: 28px clamp(16px, 4vw, 48px) 80px; max-width: 920px; width: 100%; }
+.topbar { display: none; }
+article h1 { font-size: 26px; margin: 0 0 12px; line-height: 1.25; }
+article h2 { font-size: 20px; margin: 28px 0 8px; }
+article h3 { font-size: 16px; margin: 22px 0 6px; }
+article p, article li { max-width: 72ch; }
+article table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; display: block; overflow-x: auto; }
+article th, article td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+article th { background: var(--accent-soft); }
+article code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+article pre { position: relative; background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+article pre code { background: none; padding: 0; }
+article blockquote { margin: 14px 0; padding: 4px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
+article img { max-width: 100%; }
+.copy { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 2px 9px; opacity: .85; }
+.pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.done-bar { margin-top: 28px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--ok-soft); border-radius: 10px; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0 0 22px; }
+.card h3 { margin: 0 0 10px; font-size: 14px; }
+.card .row { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto auto; gap: 8px; align-items: center; padding: 5px 0; border-top: 1px solid var(--line); }
+.card .row:first-of-type { border-top: 0; }
+.card .row span.k { color: var(--muted); font-size: 13px; }
+.card .row span.v { font: 13px ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.card .hint { color: var(--muted); font-size: 12px; margin-top: 8px; }
+.card .empty { color: var(--muted); }
+
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .side { position: fixed; z-index: 10; inset: 0 25% 0 0; height: 100%; transform: translateX(-100%); transition: transform .2s; box-shadow: 0 0 30px rgb(0 0 0 / 25%); }
+  body.menu .side { transform: none; }
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+  .card .row { grid-template-columns: 90px minmax(0, 1fr) auto auto; }
+}
+</style>
+</head>
+<body>
+<div class="topbar"><button id="menuBtn" aria-label="Меню">☰</button><b>ArchDays × Айва</b></div>
+<div class="layout">
+  <aside class="side">
+    <div class="brand">
+      <svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="28" fill="#66569d"/><path d="M64 85H22L64 43L106 85" fill="none" stroke="#fff" stroke-width="21" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>ArchDays × Айва<small>мастер-класс</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="progress" title="Прогресс по шагам"><i id="bar"></i></div>
+  </aside>
+  <main class="main"><div id="cardHost"></div><article id="doc">Загрузка…</article><div id="pager"></div></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ── Карточка доступа: данные приходят во фрагменте ссылки (#c=...), на сервер не уходят ──
+  const CARD_KEY = 'archdays-card';
+  const safe = {
+    get(s, k) { try { return s.getItem(k); } catch { return null; } },
+    set(s, k, v) { try { s.setItem(k, v); } catch {} },
+  };
+  function b64urlToJson(str) {
+    const b = str.replace(/-/g, '+').replace(/_/g, '/');
+    const bin = atob(b + '='.repeat((4 - (b.length % 4)) % 4));
+    return JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))));
+  }
+  let card = null;
+  if (location.hash.startsWith('#c=')) {
+    try {
+      card = b64urlToJson(location.hash.slice(3));
+      safe.set(sessionStorage, CARD_KEY, JSON.stringify(card));
+    } catch { card = null; }
+    history.replaceState(null, '', location.pathname + location.search + '#/');
+  } else {
+    try { card = JSON.parse(safe.get(sessionStorage, CARD_KEY) || 'null'); } catch { card = null; }
+  }
+
+  const FIELDS = [
+    ['team', 'Команда', false],
+    ['login', 'Логин', false],
+    ['password', 'Пароль', true],
+    ['org', 'Организация', false],
+    ['model', 'Код модели', false],
+    ['stand', 'URL Айвы', false],
+    ['namespace', 'Namespace', false],
+    ['mcpUrl', 'MCP endpoint', false],
+    ['mcpToken', 'Токен MCP', true],
+  ];
+
+  // ── Состав навигации ──
+  const PAGES = [
+    { group: 'Старт', items: [['README.md'], ['ACCESS.md']] },
+    { group: 'Шаги', items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => ['steps/0' + n + '_' + ['login', 'stand', 'metamodel', 'canvas', 'source', 'collect', 'recognize', 'link', 'reconcile'][n - 1] + '.md', true]) },
+    { group: 'Агент и MCP', items: [['mcp/README.md'], ['mcp/cheatsheet.md'], ...[1, 2, 3, 4, 5, 6, 7].map((n) => ['mcp/scenario0' + n + '.md'])] },
+    { group: 'Помощь', items: [['troubleshooting.md']] },
+  ];
+  const flat = PAGES.flatMap((g) => g.items.map(([path, step]) => ({ path, step: !!step })));
+  const titles = {};
+  const cache = {};
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function progress() {
+    try { return JSON.parse(safe.get(localStorage, 'archdays-done') || '{}'); } catch { return {}; }
+  }
+  function setDone(path, v) {
+    const p = progress();
+    if (v) p[path] = 1; else delete p[path];
+    safe.set(localStorage, 'archdays-done', JSON.stringify(p));
+  }
+
+  async function load(path) {
+    if (cache[path] !== undefined) return cache[path];
+    try {
+      const r = await fetch(path, { cache: 'no-cache' });
+      cache[path] = r.ok ? await r.text() : null;
+    } catch { cache[path] = null; }
+    return cache[path];
+  }
+
+  function titleOf(path, md) {
+    const m = md && md.match(/^#\s+(.+)$/m);
+    return m ? m[1].trim() : path;
+  }
+
+  async function buildNav() {
+    await Promise.all(flat.map(async (p) => { titles[p.path] = titleOf(p.path, await load(p.path)); }));
+    drawNav();
+  }
+  function drawNav() {
+    const done = progress();
+    const cur = currentPath();
+    let html = '';
+    for (const g of PAGES) {
+      html += `<div class="group">${esc(g.group)}</div>`;
+      for (const [path, step] of g.items) {
+        const cls = [path === cur ? 'active' : '', step && done[path] ? 'done' : ''].join(' ');
+        html += `<a href="#/${path}" class="${cls}">${step ? '<span class="tick">✓</span>' : ''}<span>${esc(titles[path] || path)}</span></a>`;
+      }
+    }
+    $('nav').innerHTML = html;
+    const steps = flat.filter((p) => p.step);
+    $('bar').style.width = Math.round((steps.filter((p) => done[p.path]).length / steps.length) * 100) + '%';
+  }
+
+  function currentPath() {
+    const h = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+    return flat.some((p) => p.path === h) ? h : 'README.md';
+  }
+
+  // ── Подстановка значений карточки в шаблоны (<AIVA_TOKEN>, <AIVA_MCP_URL> и т.п.) ──
+  function fill(md) {
+    if (!card) return md;
+    const map = { '<AIVA_TOKEN>': card.mcpToken, '<AIVA_MCP_URL>': card.mcpUrl, '<AIVA_URL>': card.stand };
+    for (const [k, v] of Object.entries(map)) if (v) md = md.split(k).join(v);
+    return md;
+  }
+
+  function resolve(base, rel) {
+    const u = new URL(rel, 'https://x/' + base);
+    return decodeURIComponent(u.pathname.slice(1));
+  }
+
+  function renderCard() {
+    const host = $('cardHost');
+    if (!card) {
+      host.innerHTML = '<div class="card"><h3>Ваша карточка</h3><div class="empty">Откройте персональную ссылку или отсканируйте QR-код с карточки: логин, пароль и токен появятся здесь с кнопками «Копировать».</div></div>';
+      return;
+    }
+    let rows = '';
+    for (const [key, label, secret] of FIELDS) {
+      if (!card[key]) continue;
+      rows += `<div class="row" data-k="${key}"><span class="k">${label}</span><span class="v">${secret ? '••••••••••' : esc(card[key])}</span>${secret ? '<button data-act="show">Показать</button>' : '<span></span>'}<button data-act="copy">Копировать</button></div>`;
+    }
+    host.innerHTML = `<div class="card"><h3>Ваша карточка${card.team ? ' — ' + esc(card.team) : ''}</h3>${rows}<div class="hint">Данные хранятся только в этой вкладке и пропадут при её закрытии.</div></div>`;
+    host.querySelectorAll('.row').forEach((row) => {
+      const key = row.dataset.k;
+      const val = row.querySelector('.v');
+      row.addEventListener('click', async (e) => {
+        const act = e.target.dataset && e.target.dataset.act;
+        if (act === 'copy') flash(e.target, await copyText(card[key]));
+        if (act === 'show') {
+          const shown = e.target.dataset.shown === '1';
+          val.textContent = shown ? '••••••••••' : card[key];
+          e.target.dataset.shown = shown ? '0' : '1';
+          e.target.textContent = shown ? 'Показать' : 'Скрыть';
+        }
+      });
+    });
+  }
+
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch {
+      const t = document.createElement('textarea');
+      t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch {}
+      t.remove();
+      return ok;
+    }
+  }
+  function flash(btn, ok) {
+    const old = btn.textContent;
+    btn.textContent = ok ? 'Скопировано' : 'Не удалось';
+    setTimeout(() => { btn.textContent = old; }, 1200);
+  }
+
+  async function show() {
+    const path = currentPath();
+    const md = await load(path);
+    const doc = $('doc');
+    if (md === null) { doc.innerHTML = '<h1>Не удалось загрузить страницу</h1><p>Проверьте соединение и обновите страницу.</p>'; return; }
+    doc.innerHTML = marked.parse(fill(md), { gfm: true, breaks: false });
+
+    doc.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (/^(https?:|mailto:|#)/.test(href)) { if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; } return; }
+      const target = resolve(path, href.split('#')[0]);
+      if (flat.some((p) => p.path === target)) a.setAttribute('href', '#/' + target);
+    });
+    doc.querySelectorAll('pre').forEach((pre) => {
+      const b = document.createElement('button');
+      b.className = 'copy'; b.textContent = 'Копировать';
+      b.addEventListener('click', async () => flash(b, await copyText(pre.querySelector('code').innerText)));
+      pre.appendChild(b);
+    });
+
+    const idx = flat.findIndex((p) => p.path === path);
+    const cur = flat[idx];
+    let tail = '';
+    if (cur.step) {
+      const d = progress()[path];
+      tail += `<div class="done-bar"><button class="primary" id="doneBtn">${d ? '✓ Шаг выполнен' : 'Отметить шаг выполненным'}</button><span class="muted">${d ? 'Нажмите ещё раз, чтобы снять отметку' : ''}</span></div>`;
+    }
+    const prev = flat[idx - 1], next = flat[idx + 1];
+    tail += `<div class="pager"><span>${prev ? `<a href="#/${prev.path}">← ${esc(titles[prev.path] || prev.path)}</a>` : ''}</span><span>${next ? `<a href="#/${next.path}">${esc(titles[next.path] || next.path)} →</a>` : ''}</span></div>`;
+    $('pager').innerHTML = tail;
+    const btn = $('doneBtn');
+    if (btn) btn.addEventListener('click', () => { setDone(path, !progress()[path]); show(); });
+
+    document.title = (titles[path] || 'ArchDays') + ' · ArchDays × Айва';
+    document.body.classList.remove('menu');
+    window.scrollTo(0, 0);
+    drawNav();
+  }
+
+  $('menuBtn').addEventListener('click', () => document.body.classList.toggle('menu'));
+  window.addEventListener('hashchange', show);
+  renderCard();
+  buildNav().then(show);
+})();
+</script>
+</body>
+</html>
