@@ -123,6 +123,7 @@ article img { max-width: 100%; }
   }
 
   const TEAMS = 20;
+  const WORKSHOP_PW = atob('QXJjaERheXMyMDI2IQ=='); // общий пароль воркшопа; сменить на стенде после мероприятия
   const FIELDS = [
     ['team', 'Команда', false],
     ['login', 'Логин', false],
@@ -213,9 +214,8 @@ article img { max-width: 100%; }
   function renderCard() {
     const host = $('cardHost');
     if (!card) {
-      host.innerHTML = '<div class="card"><h3>Ваша карточка</h3><div class="empty">Откройте персональную ссылку или отсканируйте QR-код с карточки. Или введите номер команды и пароль воркшопа, который назвал ведущий.</div>'
+      host.innerHTML = '<div class="card"><h3>Ваша карточка</h3><div class="empty">Введите номер своей команды: логин, пароль и организация появятся здесь с кнопками «Копировать». Или откройте персональную ссылку с карточки.</div>'
         + '<form id="teamForm" class="login"><label>Номер команды<input id="teamNo" type="number" inputmode="numeric" min="1" max="' + TEAMS + '" required></label>'
-        + '<label>Пароль воркшопа<input id="teamPw" type="password" autocomplete="off" required></label>'
         + '<button class="primary" type="submit">Показать мои доступы</button></form><div class="hint" id="teamErr"></div></div>';
       $('teamForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -224,7 +224,7 @@ article img { max-width: 100%; }
         card = {
           team: 'Команда ' + String(n).padStart(2, '0'),
           login: 'user' + n + '@arch-org' + n + '.aiva-pro.tech',
-          password: $('teamPw').value,
+          password: WORKSHOP_PW,
           org: 'arch-org' + n,
           model: 'ARCH_ORG' + n,
           stand: 'https://archdays2026.aiva-pro.tech',
