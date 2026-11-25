@@ -21,8 +21,8 @@ jobs:
           mkdir _site
           cp index.html _site/
           touch _site/.nojekyll
-          for d in steps mcp; do [ -d "$d" ] && cp -r "$d" _site/; done
-          cp README.md ACCESS.md CREDENTIALS.md troubleshooting.md _site/
+          for d in steps mcp files assets; do [ -d "$d" ] && cp -r "$d" _site/; done
+          cp README.md _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

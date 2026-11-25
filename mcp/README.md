@@ -7,8 +7,6 @@ MCP endpoint:  <AIVA_MCP_URL>
 Токен:         <AIVA_TOKEN>
 ```
 
-Токен уже привязан к юниту. `unit_id` нигде не указывается.
-
 ## Cursor
 
 [cursor.json](cursor.json) положите в `~/.cursor/mcp.json` или в `.cursor/mcp.json` проекта. Подставьте endpoint и токен, перезапустите Cursor. Сервер появится в Settings → MCP.
@@ -33,7 +31,7 @@ claude mcp add --transport http aiva <AIVA_MCP_URL> --header "Authorization: Bea
 
 Другой клиент в этих материалах не описан. Формат тот же: HTTP, адрес MCP и заголовок `Authorization: Bearer <токен>`.
 
-Если не подключается — таблица в [../troubleshooting.md](../troubleshooting.md).
+Если не подключается — таблица в [../files/FAQ.md](../files/FAQ.md).
 
 ## Сценарии
 
