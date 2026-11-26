@@ -47,4 +47,4 @@ claude mcp add --transport http aiva <AIVA_MCP_URL> --header "Authorization: Bea
 | 06 | [scenario06.md](scenario06.md) | новый атрибут метамодели. После сверки, на своей модели, не на `WS_STEP1` / `WS_STEP2` |
 | 07 | [scenario07.md](scenario07.md) | правка архитектуры после изменения кода. Тоже после сверки и не на контрольных моделях |
 
-Агент готовит текст или черновик канваса. **Сохранить** нажимаете вы. Шпаргалка: [cheatsheet.md](cheatsheet.md).
+Агент готовит текст или черновик канваса. **Сохранить** нажимаем сами. Шпаргалка: [cheatsheet.md](cheatsheet.md).
