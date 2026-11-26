@@ -1005,6 +1005,7 @@
             "intMetaClassCode": "ECOM_SERVICE",
             "modelCode": "",
             "modelClassCode": "container",
+            "autoRun": false,
             "nameAttrCode": "model_name",
             "nameTemplate": "{model_name}",
             "fieldMapping": {
