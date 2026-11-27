@@ -33,12 +33,13 @@
 | Файл | Зачем |
 | --- | --- |
 | [files/metamodel.import.json](files/metamodel.import.json) | импорт метамодели C4 в пустую модель |
+| [files/ARCHDAYS_MCP_metamodel.json](files/ARCHDAYS_MCP_metamodel.json) | дополнительно: большая метамодель (бизнес, приложения, инфраструктура), для просмотра и импорта в пустую модель |
 | [files/workspace.dsl](files/workspace.dsl) | целевой архитектурный проект для импорта в AIVA |
 | [files/TERMS.md](files/TERMS.md) | словарь терминов AIVA |
 | [files/FAQ.md](files/FAQ.md) | возможные проблемы и их решения |
 
 ## Агент
 
-Подключение: [mcp/README.md](mcp/README.md). В зале все делают [mcp/scenario01.md](mcp/scenario01.md). Если агент ещё не отвечает по модели, сначала [mcp/scenario02.md](mcp/scenario02.md). Остальные сценарии — по одному на команду, если осталось время. Формулировки: [mcp/cheatsheet.md](mcp/cheatsheet.md).
+Подключение: [mcp/README.md](mcp/README.md). Формулировки: [mcp/cheatsheet.md](mcp/cheatsheet.md).
 
 Агент читает модель и готовит текст или черновик. **Сохранить** на канвасе нажимаем сами.

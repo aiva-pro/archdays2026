@@ -140,7 +140,7 @@ article img { max-width: 100%; }
   const PAGES = [
     { group: 'Старт', items: [['README.md']] },
     { group: 'Шаги', items: [['steps/01_theory.md', true], ['steps/02_project.md', true], ['steps/03_model.md', true], ['steps/04_fact.md', true], ['steps/05_reconcile.md', true]] },
-    { group: 'Агент и MCP', items: [['mcp/README.md'], ['mcp/cheatsheet.md'], ...[1, 2, 3, 4, 5, 6, 7].map((n) => ['mcp/scenario0' + n + '.md'])] },
+    { group: 'Агент и MCP', items: [['mcp/README.md'], ['mcp/cheatsheet.md']] },
     { group: 'Справка', items: [['files/FAQ.md'], ['files/TERMS.md']] },
   ];
   const flat = PAGES.flatMap((g) => g.items.map(([path, step]) => ({ path, step: !!step })));
